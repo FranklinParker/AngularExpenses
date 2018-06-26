@@ -4,7 +4,7 @@ const testController = require('../controller/testController');
 const userController = require('../controller/userController');
 
 
-const checkAuth  = require('../auth/checkAuth');
+const checkAuth = require('../auth/checkAuth');
 /**
  * methi
  *
@@ -13,8 +13,8 @@ const checkAuth  = require('../auth/checkAuth');
  * @param message
  * @returns {Function}
  */
-const apiHandler =  (businessMethod, message) => {
-	return async function  (req, res) {
+const apiHandler = (businessMethod, message) => {
+	return async function (req, res) {
 		try {
 			const result = await businessMethod({
 				actionData: req.body || {},
@@ -24,16 +24,7 @@ const apiHandler =  (businessMethod, message) => {
 					req.params || {}),
 				user: req.user
 			});
-			if(result.isCompleteResponse){
-				const status = result.success ? 201: 401;
-				res.status(status).json(result);
-			}else {
-				res.status(201).json({
-					success: true,
-					data: result
-				});
-			}
-
+			res.status(201).json(result);
 		} catch (e) {
 			res.status(401).json({message: e.message});
 		}
@@ -43,10 +34,10 @@ const apiHandler =  (businessMethod, message) => {
 
 
 module.exports.initRouter = (app) => {
-	app.post('/api/register',apiHandler(userController.registerUser));
-	app.get('/api/test/:id',apiHandler(testController.getData));
-	app.get('/api/test',apiHandler(testController.getData));
-	app.get('/api/testSecure', checkAuth,apiHandler(testController.getDataSecure));
-	app.post('/api/testpost', checkAuth,apiHandler(testController.getDataPost));
+	app.post('/api/register', apiHandler(userController.registerUser));
+	app.get('/api/test/:id', apiHandler(testController.getData));
+	app.get('/api/test', apiHandler(testController.getData));
+	app.get('/api/testSecure', checkAuth, apiHandler(testController.getDataSecure));
+	app.post('/api/testpost', checkAuth, apiHandler(testController.getDataPost));
 
 }

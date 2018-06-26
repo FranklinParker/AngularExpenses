@@ -15,15 +15,12 @@ const registerUser = async (params) => {
 		console.log('user saved', userRecord);
 		return {
 			success: true,
-			isCompleteResponse: true,
 			record: userRecord
 		};
 	} catch (e) {
-		console.log('error register', e);
 		return {
 			success: false,
-			isCompleteResponse: true,
-			rue, message: e.message
+			message: e.message
 		};
 	}
 
