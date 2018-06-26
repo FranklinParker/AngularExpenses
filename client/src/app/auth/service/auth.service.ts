@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
+import {RegistrationModel} from "../model/registration-model";
 
 @Injectable({
   providedIn: 'root'
@@ -41,9 +42,10 @@ export class AuthService {
   async registerUser(data): Promise<any> {
 
     try {
-      const result = await this.http.post<any>(this.registerUrl, data)
+      const result = await this.http
+        .post<{ success: boolean, message?: string, record?: RegistrationModel }>(this.registerUrl, data)
         .pipe(map(result => {
-          console.log('result', result);
+          console.log('result', result.success);
           return result;
         })).toPromise();
       return result;
