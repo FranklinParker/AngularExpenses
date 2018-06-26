@@ -1,0 +1,5 @@
+{
+    "dbUrl": "mongodb://localhost:27017/expense",
+    "JWT_SECRET":"ghgghghgk676767"
+
+}  

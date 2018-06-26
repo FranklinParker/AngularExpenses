@@ -5,6 +5,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const routeInt = require('./routes/routeInitializer');
+const database = require('./database/mongooseDb');
+
+database.connectToDb();
 
 
 const app = express();
