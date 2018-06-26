@@ -26,7 +26,9 @@ const getDataSecure = async (params) => {
 
 
 const getDataPost = async (params) => {
-	console.log(params);
+	console.log('postmeth',params);
+
+
 	return courses;
 }
 

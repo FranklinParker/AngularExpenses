@@ -39,9 +39,10 @@ export class TestService {
         data
       )
         .pipe(map(result => {
+          console.log('result', result);
           return result;
         })).toPromise();
-      return data;
+      return result;
     } catch (e) {
       return {
         success: false,
