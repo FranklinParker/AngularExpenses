@@ -10,9 +10,15 @@
                 disabled="true"
                 placeholder="Result"></textarea>
     </mat-form-field>
-    <button mat-raised-button
-            (click)="testApi()"
-            color="accent" type="button">Test Api
-    </button>
+    <mat-action-row>
+      <button mat-raised-button
+              (click)="testApi()"
+              color="accent" type="button">Test get Api
+      </button>
+      <button mat-raised-button
+              (click)="testPost()"
+              color="accent" type="button">Test Post Api
+      </button>
+    </mat-action-row>
   </mat-card-content>
 </mat-card>

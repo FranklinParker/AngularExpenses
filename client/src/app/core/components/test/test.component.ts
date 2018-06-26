@@ -21,4 +21,10 @@ export class TestComponent implements OnInit {
     this.result = JSON.stringify(data);
   }
 
+  async testPost(){
+    const data = await this.testService.postData({test: 'fparker'});
+    this.result = JSON.stringify(data);
+
+  }
+
 }
