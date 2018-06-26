@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
@@ -41,9 +41,7 @@ export class AuthService {
   async registerUser(data): Promise<any> {
 
     try {
-      const result = await this.http.post<any>(this.registerUrl,
-        data
-      )
+      const result = await this.http.post<any>(this.registerUrl, data)
         .pipe(map(result => {
           console.log('result', result);
           return result;
@@ -52,7 +50,7 @@ export class AuthService {
     } catch (e) {
       return {
         success: false,
-        error: e.getMessages()
+        error: e
       };
 
     }

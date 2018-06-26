@@ -10,13 +10,21 @@ const registerUser = async (params) => {
 		email: userData.email,
 		password: userData.password
 	});
-	try{
+	try {
 		const userRecord = await user.save();
 		console.log('user saved', userRecord);
-		return { success: true, record: userRecord};
-	}catch(e){
+		return {
+			success: true,
+			isCompleteResponse: true,
+			record: userRecord
+		};
+	} catch (e) {
 		console.log('error register', e);
-		return { success: false, message: e.message};
+		return {
+			success: false,
+			isCompleteResponse: true,
+			rue, message: e.message
+		};
 	}
 
 };

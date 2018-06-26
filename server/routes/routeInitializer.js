@@ -24,10 +24,15 @@ const apiHandler =  (businessMethod, message) => {
 					req.params || {}),
 				user: req.user
 			});
-			res.status(201).json({
-				success: true,
-				data: result
-			});
+			if(result.isCompleteResponse){
+				const status = result.success ? 201: 401;
+				res.status(status).json(result);
+			}else {
+				res.status(201).json({
+					success: true,
+					data: result
+				});
+			}
 
 		} catch (e) {
 			res.status(401).json({message: e.message});
