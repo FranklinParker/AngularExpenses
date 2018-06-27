@@ -2,27 +2,32 @@ const config = require('../config/config');
 const User = require('../models/User').User;
 const findUserConfirmPassword = require('../models/User').findUserConfirmPassword;
 
-
+/**
+ * register a user making sure the email does not exist
+ *
+ *
+ * @param params
+ * @returns {Promise<*>}
+ */
 const registerUser = async (params) => {
-	console.log('register user', params.actionData);
 	const userData = params.actionData;
-	const userRecord = await User.findOne({email: userData.email });
 
-	if(userRecord){
-		return {
-			success: false,
-			message: 'This Email/user exists'
-		};
-	}
-	const user = new User({
-		firstName: userData.firstName,
-		lastName: userData.lastName,
-		email: userData.email,
-		password: userData.password
-	});
 	try {
+		const userSearchRec = await User.findOne({email: userData.email });
+
+		if(userSearchRec){
+			return {
+				success: false,
+				message: 'This Email/user exists'
+			};
+		}
+		const user = new User({
+			firstName: userData.firstName,
+			lastName: userData.lastName,
+			email: userData.email,
+			password: userData.password
+		});
 		const userRecord = await user.save();
-		console.log('user saved', userRecord);
 		return {
 			success: true,
 			record: userRecord
