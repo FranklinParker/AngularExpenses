@@ -6,6 +6,7 @@ import {RegistrationModel} from "../model/registration-model";
 import {LoggedInUser} from "../model/loggedInUser";
 import {LoginResult} from "../model/loginResult";
 import {BehaviorSubject, Observable} from "rxjs/index";
+import {Router} from "@angular/router";
 
 
 
@@ -21,7 +22,8 @@ export class AuthService {
   private loginUrl = environment.apiUrl + 'login';
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private router: Router) {
   }
 
 
@@ -37,6 +39,7 @@ export class AuthService {
   logout(){
     localStorage.clear();
     this.loggedInUserSubject.next(null);
+    this.router.navigate(['/login']);
   }
   /**
    * login
@@ -72,6 +75,7 @@ export class AuthService {
       if (result.success) {
         this.setTokenUser(result);
         this.loggedInUserSubject.next(result['user']);
+        this.router.navigate(['/']);
       }
       return result;
     } catch (e) {

@@ -1,5 +1,4 @@
 import {Component, OnInit, Output, EventEmitter, OnDestroy} from '@angular/core';
-import {Subscription} from "rxjs/index";
 import {AuthService} from "../../../auth/service/auth.service";
 import {LoggedInUser} from "../../../auth/model/loggedInUser";
 

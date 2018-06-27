@@ -6,6 +6,7 @@ import {AppRoutingModule} from "../app-routing.module";
 import { HeaderComponent } from './components/header/header.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import {AuthModule} from "../auth/auth.module";
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   imports: [
@@ -17,12 +18,14 @@ import {AuthModule} from "../auth/auth.module";
   declarations: [
     TestComponent,
     HeaderComponent,
-    SideNavComponent
+    SideNavComponent,
+    HomeComponent
   ],
   exports: [
     HeaderComponent,
     SideNavComponent,
-    TestComponent
+    TestComponent,
+    HomeComponent
   ]
 })
 export class CoreModule { }
