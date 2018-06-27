@@ -24,6 +24,9 @@
              placeholder="Enter Password">
       <mat-error *ngIf="passwordInput.invalid">Password Required</mat-error>
     </mat-form-field>
+    <div *ngIf="loginError" class="login-error">
+      <mat-label>{{loginError}}</mat-label>
+    </div>
     <div>
       <button mat-raised-button
               [disabled]="loginForm.invalid"

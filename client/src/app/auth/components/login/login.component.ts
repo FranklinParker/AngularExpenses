@@ -9,6 +9,7 @@ import {AuthService} from "../../service/auth.service";
 })
 export class LoginComponent implements OnInit {
   isLoading = false;
+  loginError: string;
 
   constructor(private authService: AuthService) {
   }
@@ -25,7 +26,9 @@ export class LoginComponent implements OnInit {
   async onLogin(form: NgForm){
     const loginData:{ email: string, password: string} = form.value;
     const result = await this.authService.login(loginData.email, loginData.password );
-    console.log('result', result);
+    if(!result.success){
+      this.loginError = result.message;
+    }
   }
 
 

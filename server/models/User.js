@@ -56,7 +56,7 @@ const findUserConfirmPassword = async (email, password) => {
 			if(!user){
 			  return {
 			    success: false,
-          message: 'Not authenticated'
+          message: 'Invalid Login'
         }
       }
 			const isMatch = await bcrypt.compare(password, user.password);
@@ -72,7 +72,7 @@ const findUserConfirmPassword = async (email, password) => {
       }else{
 				return {
 					success: false,
-					message: 'Not authenticated'
+					message:  'Invalid Login'
 				}
       }
 
@@ -80,7 +80,7 @@ const findUserConfirmPassword = async (email, password) => {
 		}catch(e){
 			return {
 				success: false,
-				message: 'Not authenticated'
+				message: 'Login Failed - System Error'
 			}
 
     }

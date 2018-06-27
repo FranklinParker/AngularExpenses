@@ -55,7 +55,7 @@ export class AuthService {
    * @returns {Promise<any>}
    */
 
-  async login(email: string, password) {
+  async login(email: string, password): Promise<{ success: boolean, message?: string}> {
     const body = {
       email,
       password
@@ -86,7 +86,7 @@ export class AuthService {
     } catch (e) {
       return {
         success: false,
-        error: e
+        message: ' Authentication Failed - system error'
       };
 
     }
