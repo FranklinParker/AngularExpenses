@@ -59,8 +59,11 @@
                placeholder="Re-enter Password">
         <mat-error *ngIf="passwordMatchInput.invalid">Matching Password Required</mat-error>
       </mat-form-field>
-      <div *ngIf="passwordsDoNotMatch">
+      <div class='password-error' *ngIf="passwordsDoNotMatch">
         <label>Passwords do not match</label>
+      </div>
+      <div class='password-match' *ngIf="passwordsMatch">
+        <label>Passwords match</label>
       </div>
       <div>
         <button mat-raised-button

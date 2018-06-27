@@ -50,4 +50,15 @@ export class SignupComponent implements OnInit {
     }
   }
 
+
+  get passwordsMatch() {
+    if (this.registrant.password.length >= this.passwordMinLength &&
+      this.registrant.password === this.passwordMatch) {
+      console.log('this.registrant.password:' + this.registrant.password);
+      console.log('this.passwordMatch:' + this.passwordMatch);
+      return true
+    } else {
+      return false;
+    }
+  }
 }

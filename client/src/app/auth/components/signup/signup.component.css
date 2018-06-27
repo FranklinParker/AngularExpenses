@@ -11,3 +11,20 @@ mat-card-header{
    padding-top: 2rem;
    font-size: 14pt;
  }
+
+.password-error {
+  background-color: red;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+
+.password-match {
+  background-color: green;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
