@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const _ = require('lodash');
+const config = require('../config/config');
+const jwt = require('jsonwebtoken');
 
 
 const mongooseUniqueValidator = require('mongoose-unique-validator');
@@ -49,27 +51,42 @@ UserSchema.plugin(mongooseUniqueValidator);
 const User = mongoose.model('User', UserSchema);
 
 const findUserConfirmPassword = async (email, password) => {
-  return new Promise((resolve, reject) => {
-    User.findOne({email: email})
-      .then((user) => {
-          console.log('user', user);
-          if (!user) {
-            reject('login failed user')
-          } else{
-            bcrypt.compare(password, user.password, (err, res) => {
-
-              console.log('res', res);
-              console.log('errr', err);
-              if (res) {
-                resolve(user);
-              } else {
-                reject('login failed');
-              }
-            });
-          }
+    try{
+			const user = await User.findOne({email: email});
+			if(!user){
+			  return {
+			    success: false,
+          message: 'Not authenticated'
         }
-      );
-  });
+      }
+			const isMatch = await bcrypt.compare(password, user.password);
+      if(isMatch){
+				const token = jwt.sign({email: user.email, userId: user._id},
+					config.secret
+					, {expiresIn: '1h'});
+				return {
+					success: true,
+					userRecord: user,
+          token: token
+				}
+      }else{
+				return {
+					success: false,
+					message: 'Not authenticated'
+				}
+      }
+
+
+		}catch(e){
+			return {
+				success: false,
+				message: 'Not authenticated'
+			}
+
+    }
+
+
+
 }
 
 module.exports.findUserConfirmPassword = findUserConfirmPassword;

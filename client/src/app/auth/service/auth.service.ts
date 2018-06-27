@@ -46,7 +46,7 @@ export class AuthService {
         .post<{ success: boolean, message?: string, record?: any }>(this.loginUrl,
           body)
         .pipe(map(result => {
-          console.log('login result', result.success);
+          console.log('login result', result);
           return result;
         })).toPromise();
       return result;

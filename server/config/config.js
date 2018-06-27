@@ -8,7 +8,6 @@ if(process.env.dbUrl){
   config.secret = appConfig.JWT_SECRET;
   config.dbUrl = appConfig.dbUrl;
 }
-console.log('config', config);
 
 
 module.exports = config;
