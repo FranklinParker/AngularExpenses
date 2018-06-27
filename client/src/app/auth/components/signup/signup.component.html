@@ -65,6 +65,9 @@
       <div class='password-match' *ngIf="passwordsMatch">
         <label>Passwords match</label>
       </div>
+      <div class='registration-error' *ngIf="registrationError">
+        <label>{{registrationError}}</label>
+      </div>
       <div>
         <button mat-raised-button
                 [disabled]="signUpForm.invalid || passwordsDoNotMatch"

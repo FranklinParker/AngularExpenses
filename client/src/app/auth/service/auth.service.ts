@@ -78,7 +78,7 @@ export class AuthService {
       const result = await this.http
         .post<{ success: boolean, message?: string, record?: RegistrationModel }>(this.registerUrl, data)
         .pipe(map(result => {
-          console.log('result', result.success);
+          console.log('registration result', result);
           return result;
         })).toPromise();
       return result;

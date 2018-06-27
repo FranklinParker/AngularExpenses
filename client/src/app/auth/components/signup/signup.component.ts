@@ -12,6 +12,7 @@ export class SignupComponent implements OnInit {
   isLoading = false;
   passwordMinLength = 8;
   passwordMatch = '';
+  registrationError: string;
 
   registrant: RegistrationModel ={
     firstName: '',
@@ -31,8 +32,8 @@ export class SignupComponent implements OnInit {
    *
    * @param {NgForm} form
    */
-  onSignup(form: NgForm) {
-    this.authService.registerUser(this.registrant);
+  async onSignup(form: NgForm) {
+    const result = await this.authService.registerUser(this.registrant);
   }
 
   /**
