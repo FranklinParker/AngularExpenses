@@ -6,7 +6,8 @@
   <mat-card-content>
     <form (submit)="onSignup(signUpForm)"
           #signUpForm="ngForm"
-          *ngIf="!isLoading">
+          *ngIf="!isLoading"
+    (keyup)="onFormKeyUp()">
       <mat-form-field>
         <input matInput
                name="firstName"

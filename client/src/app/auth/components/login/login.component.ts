@@ -17,6 +17,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  onFormKeyUp(){
+    this.loginError = null;
+  }
   /**
    * login
    *

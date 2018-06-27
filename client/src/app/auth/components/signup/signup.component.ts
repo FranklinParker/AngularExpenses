@@ -27,6 +27,9 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
+  onFormKeyUp(){
+    this.registrationError = null;
+  }
   /**
    *  registers the user
    *

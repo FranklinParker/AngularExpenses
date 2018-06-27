@@ -2,7 +2,8 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onLogin(loginForm)"
         #loginForm="ngForm"
-        *ngIf="!isLoading">
+        *ngIf="!isLoading"
+        (keyup)="onFormKeyUp()">
     <mat-form-field>
       <input matInput
              name="email"
