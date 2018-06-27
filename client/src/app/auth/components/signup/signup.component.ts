@@ -14,7 +14,7 @@ export class SignupComponent implements OnInit {
   passwordMatch = '';
   registrationError: string;
 
-  registrant: RegistrationModel ={
+  registrant: RegistrationModel = {
     firstName: '',
     lastName: '',
     email: '',
@@ -34,9 +34,10 @@ export class SignupComponent implements OnInit {
    */
   async onSignup(form: NgForm) {
     const result = await this.authService.registerUser(this.registrant);
-    console.log('reg result', result);
-    if(result.success){
+    if (result.success) {
       this.authService.login(this.registrant.email, this.registrant.password);
+    }else{
+      this.registrationError = result.message;
     }
   }
 
@@ -58,10 +59,13 @@ export class SignupComponent implements OnInit {
 
   get passwordsMatch() {
     if (this.registrant.password.length >= this.passwordMinLength &&
-      this.registrant.password === this.passwordMatch) {
+      this.registrant.password === this.passwordMatch
+      && !this.registrationError) {
       return true
     } else {
       return false;
     }
   }
+
+
 }
