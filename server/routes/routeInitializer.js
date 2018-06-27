@@ -6,7 +6,8 @@ const userController = require('../controller/userController');
 
 const checkAuth = require('../auth/checkAuth');
 /**
- * methi
+ * method to parse all request objects and send to a method
+ * that does not deal with request but a paramaterized request object
  *
  *
  * @param businessMethod

@@ -15,7 +15,10 @@ const courses = [
 
 const getData = async (params) => {
 	console.log(params);
-	return courses;
+	return {
+		success: true,
+		records: courses
+	};
 
 };
 
@@ -27,7 +30,6 @@ const getDataSecure = async (params) => {
 
 const getDataPost = async (params) => {
 	console.log('postmeth',params);
-
 
 	return courses;
 }

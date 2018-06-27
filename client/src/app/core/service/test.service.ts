@@ -17,16 +17,17 @@ export class TestService {
 
   async getData(): Promise<any> {
     try {
-      const data = await this.http.get<{ data: any }>(this.getUrl
+      const data = await this.http.get<{ success: boolean,records: any }>(this.getUrl
         + '?name=test')
         .pipe(map(result => {
-          return result.data;
+          return result.records;
         })).toPromise();
       return data;
     } catch (e) {
+      console.log(e);
       return {
         success: false,
-        error: e.getMessages()
+        error: e.toString()
       };
 
     }
