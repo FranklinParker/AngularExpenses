@@ -14,7 +14,6 @@ export class AuthService {
   private loginUrl = environment.apiUrl + 'login';
 
 
-
   constructor(private http: HttpClient) {
   }
 
@@ -35,8 +34,16 @@ export class AuthService {
     }
   }
 
+  /**
+   * login
+   *
+   *
+   * @param {string} email
+   * @param password
+   * @returns {Promise<any>}
+   */
 
-  async login(email: string, password){
+  async login(email: string, password) {
     const body = {
       email,
       password
@@ -46,7 +53,7 @@ export class AuthService {
         .post<{ success: boolean, message?: string, record?: any }>(this.loginUrl,
           body)
         .pipe(map(result => {
-          console.log('login result', result);
+          console.log('login data', result);
           return result;
         })).toPromise();
       return result;
@@ -57,8 +64,8 @@ export class AuthService {
       };
 
     }
-
   }
+
   /**
    * registers a user
    *
