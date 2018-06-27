@@ -10,7 +10,9 @@
   </div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxShow.gt-sm="true"
        fxShow="false">
-
+    <ul fxLayout fxLayoutGap="10px" class="navigation-list-items">
+      <li><a routerLink="/test">Test</a></li>
+    </ul>
     <ul *ngIf="!loggedInUser" fxLayout fxLayoutGap="10px" class="navigation-list-items">
       <li><a routerLink="/login">Login</a></li>
     </ul>

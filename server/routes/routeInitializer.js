@@ -22,7 +22,7 @@ const apiHandler = (businessMethod, message) => {
 						$method: req.method
 					}, req.query || {}),
 					req.params || {}),
-				user: req.user
+				user: req.userData
 			});
 			res.status(201).json(result);
 		} catch (e) {
@@ -37,7 +37,7 @@ module.exports.initRouter = (app) => {
 	app.post('/api/register', apiHandler(userController.registerUser));
 	app.post('/api/login', apiHandler(userController.login));
 	app.get('/api/test/:id', apiHandler(testController.getData));
-	app.get('/api/test', apiHandler(testController.getData));
+	app.get('/api/test',checkAuth, apiHandler(testController.getData));
 	app.get('/api/testSecure', checkAuth, apiHandler(testController.getDataSecure));
 	app.post('/api/testpost', checkAuth, apiHandler(testController.getDataPost));
 

@@ -103,6 +103,13 @@ export class AuthService {
   }
 
   /**
+   * gets token if it exists
+   *
+   */
+  getToken(){
+    return localStorage.getItem('token');
+  }
+  /**
    * get loggedInUser from local storage
    *
    * @returns {LoggedInUser}
