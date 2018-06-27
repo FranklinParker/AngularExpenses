@@ -3,13 +3,14 @@ import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {RegistrationModel} from "../model/registration-model";
+import {LoggedInUser} from "../model/loggedInUser";
+import {LoginResult} from "../model/loginResult";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private getUrl = environment.apiUrl + 'test';
   private registerUrl = environment.apiUrl + 'register';
   private loginUrl = environment.apiUrl + 'login';
 
@@ -17,22 +18,6 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  private async getData(): Promise<any> {
-    try {
-      const data = await this.http.get<{ data: any }>(this.getUrl
-        + '?name=test')
-        .pipe(map(result => {
-          return result.data;
-        })).toPromise();
-      return data;
-    } catch (e) {
-      return {
-        success: false,
-        error: e.getMessages()
-      };
-
-    }
-  }
 
   /**
    * login
@@ -49,13 +34,25 @@ export class AuthService {
       password
     };
     try {
-      const result = await this.http
-        .post<{ success: boolean, message?: string, record?: any }>(this.loginUrl,
-          body)
-        .pipe(map(result => {
-          console.log('login data', result);
+      const result = await this.http.post<LoginResult>(this.loginUrl, body)
+        .pipe(map((result: LoginResult) => {
+          console.log('loginResult', result);
+          if (result.success) {
+            const mapResult: { success: boolean, token: string, user: LoggedInUser } = {
+              success: true,
+              token: result.token,
+              user: new LoggedInUser(result.record._id,
+                result.record.firstName,
+                result.record.lastName,
+                result.record.email)
+            };
+            return mapResult;
+          }
           return result;
         })).toPromise();
+      if (result.success) {
+        this.setTokenUser(result);
+      }
       return result;
     } catch (e) {
       return {
@@ -64,6 +61,16 @@ export class AuthService {
       };
 
     }
+  }
+
+  /**
+   *
+   *
+   * @param {{token: string; user: LoggedInUser}} result
+   */
+  private setTokenUser(result) {
+    localStorage.setItem('loginInUser', JSON.stringify(result.user));
+    localStorage.setItem('token', result.token);
   }
 
   /**

@@ -66,7 +66,7 @@ const findUserConfirmPassword = async (email, password) => {
 					, {expiresIn: '1h'});
 				return {
 					success: true,
-					userRecord: user,
+					record: user,
           token: token
 				}
       }else{

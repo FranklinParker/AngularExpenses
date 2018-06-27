@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
    * @returns {Promise<void>}
    */
   async onLogin(form: NgForm){
-    console.log('form',form.value);
     const loginData:{ email: string, password: string} = form.value;
-    await this.authService.login(loginData.email, loginData.password );
-
+    console.log('loginData',loginData);
+    const result = await this.authService.login(loginData.email, loginData.password );
+    console.log('result', result);
   }
 
 }

@@ -34,6 +34,10 @@ export class SignupComponent implements OnInit {
    */
   async onSignup(form: NgForm) {
     const result = await this.authService.registerUser(this.registrant);
+
+    if(result.success){
+      this.authService.login(this.registrant.email, this.registrant.password);
+    }
   }
 
   /**
