@@ -24,9 +24,10 @@ export class LoginComponent implements OnInit {
    */
   async onLogin(form: NgForm){
     const loginData:{ email: string, password: string} = form.value;
-    console.log('loginData',loginData);
     const result = await this.authService.login(loginData.email, loginData.password );
     console.log('result', result);
   }
+
+
 
 }

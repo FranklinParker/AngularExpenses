@@ -5,19 +5,22 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <div>
-    <h4 >For logged out</h4>
+  <div class="logged-in-user" *ngIf="loggedInUser">
+    <h4 >Welcome {{loggedInUser.getDisplayName()}}</h4>
   </div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxShow.gt-sm="true"
        fxShow="false">
-    <ul fxLayout fxLayoutGap="10px" class="navigation-list-items">
-      <li><a routerLink="/test" >Test</a></li>
-    </ul>
-    <ul fxLayout fxLayoutGap="10px" class="navigation-list-items">
+
+    <ul *ngIf="!loggedInUser" fxLayout fxLayoutGap="10px" class="navigation-list-items">
       <li><a routerLink="/login">Login</a></li>
     </ul>
-    <ul fxLayout fxLayoutGap="10px" class="navigation-list-items">
+    <ul *ngIf="!loggedInUser"
+        fxLayout fxLayoutGap="10px"
+        class="navigation-list-items">
       <li><a routerLink="/register">Register</a></li>
+    </ul>
+    <ul *ngIf="loggedInUser" fxLayout fxLayoutGap="10px" class="navigation-list-items">
+      <li><a mat-stroked-button (click)="onLogout()" >Logout</a></li>
     </ul>
   </div>
 </mat-toolbar>

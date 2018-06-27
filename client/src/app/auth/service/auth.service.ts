@@ -5,11 +5,17 @@ import {HttpClient} from "@angular/common/http";
 import {RegistrationModel} from "../model/registration-model";
 import {LoggedInUser} from "../model/loggedInUser";
 import {LoginResult} from "../model/loginResult";
+import {BehaviorSubject, Observable} from "rxjs/index";
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  private loggedInUserSubject = new BehaviorSubject<LoggedInUser>(null);
+
 
   private registerUrl = environment.apiUrl + 'register';
   private loginUrl = environment.apiUrl + 'login';
@@ -19,6 +25,19 @@ export class AuthService {
   }
 
 
+  /**
+   *
+   *
+   * @returns {Observable<LoggedInUser>}
+   */
+  getUserLoggedInUserObservable(): Observable<LoggedInUser>{
+    return this.loggedInUserSubject.asObservable();
+  }
+
+  logout(){
+    localStorage.clear();
+    this.loggedInUserSubject.next(null);
+  }
   /**
    * login
    *
@@ -52,6 +71,7 @@ export class AuthService {
         })).toPromise();
       if (result.success) {
         this.setTokenUser(result);
+        this.loggedInUserSubject.next(result['user']);
       }
       return result;
     } catch (e) {
@@ -69,8 +89,25 @@ export class AuthService {
    * @param {{token: string; user: LoggedInUser}} result
    */
   private setTokenUser(result) {
-    localStorage.setItem('loginInUser', JSON.stringify(result.user));
+    localStorage.setItem('loggedInUser', JSON.stringify(result.user));
     localStorage.setItem('token', result.token);
+  }
+
+  /**
+   * get loggedInUser from local storage
+   *
+   * @returns {LoggedInUser}
+   */
+
+  getUserLoggedInUser(): LoggedInUser{
+    const loggedInUserStr = localStorage.getItem('loggedInUser');
+    if(loggedInUserStr){
+      const loggedInUser:LoggedInUser = JSON.parse(loggedInUserStr);
+      return loggedInUser;
+    }else{
+      return null;
+    }
+
   }
 
   /**
