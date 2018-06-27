@@ -36,6 +36,11 @@ export class AuthService {
     return this.loggedInUserSubject.asObservable();
   }
 
+  /**
+   * logout and navigate to login
+   *
+   *
+   */
   logout(){
     localStorage.clear();
     this.loggedInUserSubject.next(null);
