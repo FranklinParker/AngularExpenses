@@ -11,6 +11,8 @@ export class AuthService {
 
   private getUrl = environment.apiUrl + 'test';
   private registerUrl = environment.apiUrl + 'register';
+  private loginUrl = environment.apiUrl + 'login';
+
 
 
   constructor(private http: HttpClient) {
@@ -33,6 +35,30 @@ export class AuthService {
     }
   }
 
+
+  async login(email: string, password){
+    const body = {
+      email,
+      password
+    };
+    try {
+      const result = await this.http
+        .post<{ success: boolean, message?: string, record?: any }>(this.loginUrl,
+          body)
+        .pipe(map(result => {
+          console.log('login result', result.success);
+          return result;
+        })).toPromise();
+      return result;
+    } catch (e) {
+      return {
+        success: false,
+        error: e
+      };
+
+    }
+
+  }
   /**
    * registers a user
    *

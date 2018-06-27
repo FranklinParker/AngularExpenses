@@ -50,13 +50,16 @@ const User = mongoose.model('User', UserSchema);
 
 const findUserConfirmPassword = async (email, password) => {
   return new Promise((resolve, reject) => {
-    User.findOne({email})
+    User.findOne({email: email})
       .then((user) => {
+          console.log('user', user);
           if (!user) {
             reject('login failed user')
           } else{
             bcrypt.compare(password, user.password, (err, res) => {
+
               console.log('res', res);
+              console.log('errr', err);
               if (res) {
                 resolve(user);
               } else {
@@ -64,11 +67,9 @@ const findUserConfirmPassword = async (email, password) => {
               }
             });
           }
-
         }
       );
   });
-
 }
 
 module.exports.findUserConfirmPassword = findUserConfirmPassword;

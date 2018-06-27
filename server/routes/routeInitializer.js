@@ -35,6 +35,7 @@ const apiHandler = (businessMethod, message) => {
 
 module.exports.initRouter = (app) => {
 	app.post('/api/register', apiHandler(userController.registerUser));
+	app.post('/api/login', apiHandler(userController.login));
 	app.get('/api/test/:id', apiHandler(testController.getData));
 	app.get('/api/test', apiHandler(testController.getData));
 	app.get('/api/testSecure', checkAuth, apiHandler(testController.getDataSecure));
