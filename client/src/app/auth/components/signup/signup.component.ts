@@ -34,14 +34,14 @@ export class SignupComponent implements OnInit {
    */
   async onSignup(form: NgForm) {
     const result = await this.authService.registerUser(this.registrant);
-
+    console.log('reg result', result);
     if(result.success){
       this.authService.login(this.registrant.email, this.registrant.password);
     }
   }
 
   /**
-   * checks if passwords match
+   * checks if passwords do not match
    *
    *
    * @returns {boolean}

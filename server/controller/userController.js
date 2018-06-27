@@ -6,7 +6,8 @@ const findUserConfirmPassword = require('../models/User').findUserConfirmPasswor
 const registerUser = async (params) => {
 	console.log('register user', params.actionData);
 	const userData = params.actionData;
-	const userRecord = await User.find({email: userData.email });
+	const userRecord = await User.findOne({email: userData.email });
+
 	if(userRecord){
 		return {
 			success: false,
