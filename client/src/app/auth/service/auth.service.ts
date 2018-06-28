@@ -16,7 +16,7 @@ import {Router} from "@angular/router";
 export class AuthService {
 
   private loggedInUserSubject = new BehaviorSubject<LoggedInUser>(null);
-
+  private tokenTimer;
 
   private registerUrl = environment.apiUrl + 'register';
   private loginUrl = environment.apiUrl + 'login';
@@ -65,9 +65,11 @@ export class AuthService {
         .pipe(map((result: LoginResult) => {
           console.log('loginResult', result);
           if (result.success) {
-            const mapResult: { success: boolean, token: string, user: LoggedInUser } = {
+            const mapResult: { success: boolean, token: string,
+              user: LoggedInUser, expiresIn: number } = {
               success: true,
               token: result.token,
+              expiresIn: result.expiresIn,
               user: new LoggedInUser(result.record._id,
                 result.record.firstName,
                 result.record.lastName,
@@ -80,6 +82,7 @@ export class AuthService {
       if (result.success) {
         this.setTokenUser(result);
         this.loggedInUserSubject.next(result['user']);
+        this.setAuthTimer(result.expiresIn*1000);
         this.router.navigate(['/']);
       }
       return result;
@@ -100,14 +103,58 @@ export class AuthService {
   private setTokenUser(result) {
     localStorage.setItem('loggedInUser', JSON.stringify(result.user));
     localStorage.setItem('token', result.token);
+    localStorage.setItem('expiresIn',''+ new Date().getTime()
+      +(result.expiresIn*1000));
   }
 
+  /**
+   * try to auto login user
+   *
+   */
+  autoAuthUser() {
+    const authData = this.getAuthData();
+    if (!authData) {
+      return;
+    }
+    const expiresTime = authData.expiresIn - new Date().getTime();
+    if(expiresTime > 0){
+      const loggedInUser: LoggedInUser = this.getUserLoggedInUser();
+      this.loggedInUserSubject.next(loggedInUser);
+      this.setAuthTimer(expiresTime);
+      this.router.navigate(["/"]);
+
+    }else{
+     localStorage.clear();
+    }
+
+
+  }
+
+
+  private setAuthTimer(duration: number){
+    this.tokenTimer = setTimeout(() => {
+      console.log("automatic timeout ");
+      this.logout();
+    }, duration );
+  }
   /**
    * gets token if it exists
    *
    */
   getToken(){
     return localStorage.getItem('token');
+  }
+
+  getAuthData(): { token: string, expiresIn: number}{
+    const token = localStorage.getItem('token');
+    const expiresIn = localStorage.getItem('expiresIn');
+    if(!token || !expiresIn){
+      return null;
+    }
+    return {
+      token: token,
+      expiresIn: +expiresIn
+    }
   }
   /**
    * get loggedInUser from local storage
