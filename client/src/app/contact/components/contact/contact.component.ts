@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Contact} from "../../model/contact";
+import {ContactService} from "../../service/contact.service";
 
 @Component({
   selector: 'app-contact',
@@ -14,13 +15,19 @@ export class ContactComponent implements OnInit {
     email: null,
     phone: null
   };
-  constructor() { }
+  constructor(private contactService: ContactService) { }
 
   ngOnInit() {
   }
 
+  /**
+   * save a contact
+   *
+   * @param {NgForm} form
+   * @returns {Promise<void>}
+   */
   async onSubmit(form: NgForm){
-
+    await this.contactService.saveContact(this.contact);
   }
 
 }
