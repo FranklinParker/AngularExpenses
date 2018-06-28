@@ -21,14 +21,11 @@ export class AuthService {
   private registerUrl = environment.apiUrl + 'register';
   private loginUrl = environment.apiUrl + 'login';
 
-
   constructor(private http: HttpClient,
               private router: Router) {
   }
-
-
   /**
-   *
+   * get observabale for logged in user
    *
    * @returns {Observable<LoggedInUser>}
    */
@@ -63,7 +60,6 @@ export class AuthService {
     try {
       const result = await this.http.post<LoginResult>(this.loginUrl, body)
         .pipe(map((result: LoginResult) => {
-          console.log('loginResult', result);
           if (result.success) {
             const mapResult: { success: boolean, token: string,
               user: LoggedInUser, expiresIn: number } = {
@@ -117,6 +113,7 @@ export class AuthService {
       return;
     }
     const expiresTime = authData.expiresIn - new Date().getTime();
+    console.log('expiresTime:' + expiresTime);
     if(expiresTime > 0){
       const loggedInUser: LoggedInUser = this.getUserLoggedInUser();
       this.loggedInUserSubject.next(loggedInUser);
@@ -126,7 +123,6 @@ export class AuthService {
     }else{
      localStorage.clear();
     }
-
 
   }
 
