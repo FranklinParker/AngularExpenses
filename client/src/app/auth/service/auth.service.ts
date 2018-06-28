@@ -63,10 +63,10 @@ export class AuthService {
         .pipe(map((result: LoginResult) => {
           if (result.success) {
             const mapResult: { success: boolean, token: string,
-              user: LoggedInUser, expiresIn: number } = {
+              user: LoggedInUser, expiresInSeconds: number } = {
               success: true,
               token: result.token,
-              expiresIn: result.expiresIn,
+              expiresInSeconds: result.expiresInSeconds,
               user: {
                 lastName: result.record.firstName,
                 firstName: result.record.lastName,
@@ -81,7 +81,7 @@ export class AuthService {
       if (result.success) {
         this.setTokenUser(result);
         this.loggedInUserSubject.next(result['user']);
-        this.setAuthTimer(result.expiresIn*1000);
+        this.setAuthTimer(result.expiresInSeconds*1000);
         this.router.navigate(['/']);
       }
       return result;
@@ -101,7 +101,7 @@ export class AuthService {
    */
   private setTokenUser(result) {
     const currTime =  new Date().getTime();
-    const expiresInTime = currTime + (result.expiresIn * 1000);
+    const expiresInTime = currTime + (result.expiresInSeconds * 1000);
     localStorage.setItem('loggedInUser', JSON.stringify(result.user));
     localStorage.setItem('token', result.token);
     localStorage.setItem('expiresIn','' + expiresInTime);

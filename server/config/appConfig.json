@@ -1,6 +1,6 @@
 {
     "dbUrl": "mongodb://localhost:27017/expense",
     "JWT_SECRET":"ghgghghgk676767",
-    "EXPIRE_JWT": 240
+    "EXPIRE_JWT_SECONDS": 90
 
 }  
