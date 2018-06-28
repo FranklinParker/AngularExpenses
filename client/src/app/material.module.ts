@@ -6,7 +6,7 @@ import {
   MatExpansionModule, MatIconModule,
   MatInputModule, MatListModule,
   MatPaginatorModule,
-  MatProgressSpinnerModule, MatSidenavModule,
+  MatProgressSpinnerModule, MatSidenavModule, MatSnackBarModule,
   MatToolbarModule
 } from "@angular/material";
 import {LayoutModule} from "@angular/cdk/layout";
@@ -24,7 +24,8 @@ import {LayoutModule} from "@angular/cdk/layout";
     LayoutModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule
   ],
 
   declarations: []

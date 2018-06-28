@@ -35,21 +35,21 @@ export class ContactService {
    * @param {Contact} contact
    * @returns {Promise<any>}
    */
-  async saveContact(contact: Contact): Promise<any> {
-    console.log('saving a contact:', contact);
+  async saveContact(contact: Contact): Promise<{success: boolean, message?: string}> {
     try {
       const result = await this.http.post<any>(this.postUrl,
         contact
       )
         .pipe(map(result => {
-          console.log('contact save result', result);
           return result;
         })).toPromise();
+      console.log('contact save result', result);
       return result;
     } catch (e) {
+      console.log('error saving contact', e);
       return {
         success: false,
-        error: e.getMessages()
+        message: 'System Error Saving Record'
       };
 
     }
