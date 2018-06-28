@@ -114,18 +114,12 @@ export class AuthService {
   autoAuthUser() {
     const authData = this.getAuthData();
     if (!authData) {
-      console.log('auth data not found')
       return;
     }
     const currTime = new Date().getTime();
-    console.log('currTime:' + currTime);
-    console.log('expiresIn:' + authData.expiresIn);
-
     const expiresTime = authData.expiresIn - currTime;
-    console.log('expiresTime:' + expiresTime);
     if(expiresTime > 0){
       const loggedInUser: LoggedInUser = this.getUserLoggedInUser();
-      console.log('loggedInUser:', loggedInUser);
       this.loggedInUserSubject.next(loggedInUser);
       this.setAuthTimer(expiresTime);
       this.router.navigate(["/"]);
