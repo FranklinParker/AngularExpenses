@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.getUserLoggedInUserObservable()
       .subscribe((loggedInUser: LoggedInUser) => {
         this.loggedInUser = loggedInUser;
+        console.log('loggedInUser', loggedInUser);
       });
   }
 
@@ -30,5 +31,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout(){
     this.authService.logout();
+  }
+
+  get displayName(){
+    return this.loggedInUser?
+      this.loggedInUser.firstName + ' ' + this.loggedInUser.lastName
+      : null;
   }
 }

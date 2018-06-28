@@ -40,6 +40,7 @@ export class AuthService {
    */
   logout(){
     localStorage.clear();
+    clearTimeout(this.tokenTimer);
     this.loggedInUserSubject.next(null);
     this.router.navigate(['/login']);
   }
@@ -66,10 +67,12 @@ export class AuthService {
               success: true,
               token: result.token,
               expiresIn: result.expiresIn,
-              user: new LoggedInUser(result.record._id,
-                result.record.firstName,
-                result.record.lastName,
-                result.record.email)
+              user: {
+                lastName: result.record.firstName,
+                firstName: result.record.lastName,
+                email: result.record.email,
+                id: result.record._id
+              }
             };
             return mapResult;
           }
@@ -97,10 +100,11 @@ export class AuthService {
    * @param {{token: string; user: LoggedInUser}} result
    */
   private setTokenUser(result) {
+    const currTime =  new Date().getTime();
+    const expiresInTime = currTime + (result.expiresIn * 1000);
     localStorage.setItem('loggedInUser', JSON.stringify(result.user));
     localStorage.setItem('token', result.token);
-    localStorage.setItem('expiresIn',''+ new Date().getTime()
-      +(result.expiresIn*1000));
+    localStorage.setItem('expiresIn','' + expiresInTime);
   }
 
   /**
@@ -110,12 +114,18 @@ export class AuthService {
   autoAuthUser() {
     const authData = this.getAuthData();
     if (!authData) {
+      console.log('auth data not found')
       return;
     }
-    const expiresTime = authData.expiresIn - new Date().getTime();
+    const currTime = new Date().getTime();
+    console.log('currTime:' + currTime);
+    console.log('expiresIn:' + authData.expiresIn);
+
+    const expiresTime = authData.expiresIn - currTime;
     console.log('expiresTime:' + expiresTime);
     if(expiresTime > 0){
       const loggedInUser: LoggedInUser = this.getUserLoggedInUser();
+      console.log('loggedInUser:', loggedInUser);
       this.loggedInUserSubject.next(loggedInUser);
       this.setAuthTimer(expiresTime);
       this.router.navigate(["/"]);
