@@ -2,6 +2,7 @@ const extend = Object.assign;
 
 const testController = require('../controller/testController');
 const userController = require('../controller/userController');
+const contactController = require('../controller/contactController');
 
 
 const checkAuth = require('../auth/checkAuth');
@@ -37,6 +38,7 @@ const apiHandler = (businessMethod, message) => {
 module.exports.initRouter = (app) => {
 	app.post('/api/register', apiHandler(userController.registerUser));
 	app.post('/api/login', apiHandler(userController.login));
+	app.post('/api/contact', apiHandler(contactController.saveContact));
 	app.get('/api/test/:id', apiHandler(testController.getData));
 	app.get('/api/test',checkAuth, apiHandler(testController.getData));
 	app.get('/api/testSecure', checkAuth, apiHandler(testController.getDataSecure));
