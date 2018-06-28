@@ -8,6 +8,8 @@ import {MaterialModule} from "./material.module";
 import {CoreModule} from "./core/core.module";
 import {TokenInterceptor} from "./auth/service/token.interceptor";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HttpErrorInterceptor} from "./core/http-error-interceptor";
+import {ErrorComponent} from "./core/components/error/error.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,15 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
     }
+  ],
+  entryComponents:[
+    ErrorComponent
   ],
   bootstrap: [AppComponent]
 })

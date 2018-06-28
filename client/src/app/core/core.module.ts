@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import {AuthModule} from "../auth/auth.module";
 import { HomeComponent } from './components/home/home.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   imports: [
@@ -19,13 +20,16 @@ import { HomeComponent } from './components/home/home.component';
     TestComponent,
     HeaderComponent,
     SideNavComponent,
-    HomeComponent
+    HomeComponent,
+    ErrorComponent
   ],
   exports: [
     HeaderComponent,
     SideNavComponent,
     TestComponent,
-    HomeComponent
-  ]
+    HomeComponent,
+    ErrorComponent
+  ],
+
 })
 export class CoreModule { }

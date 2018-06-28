@@ -15,6 +15,7 @@ const courses = [
 
 const getData = async (params) => {
 	console.log(params);
+
 	return {
 		success: true,
 		records: courses
