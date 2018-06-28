@@ -10,6 +10,7 @@ import {TokenInterceptor} from "./auth/service/token.interceptor";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HttpErrorInterceptor} from "./core/http-error-interceptor";
 import {ErrorComponent} from "./core/components/error/error.component";
+import {ContactModule} from "./contact/contact.module";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {ErrorComponent} from "./core/components/error/error.component";
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    CoreModule
+    CoreModule,
+    ContactModule
   ],
   providers: [
     {

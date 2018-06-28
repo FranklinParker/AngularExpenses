@@ -22,6 +22,9 @@
       <li><a routerLink="/register">Register</a></li>
     </ul>
     <ul *ngIf="loggedInUser" fxLayout fxLayoutGap="10px" class="navigation-list-items">
+      <li><a routerLink="/contact">Contact</a></li>
+    </ul>
+    <ul *ngIf="loggedInUser" fxLayout fxLayoutGap="10px" class="navigation-list-items">
       <li><a mat-stroked-button (click)="onLogout()" >Logout</a></li>
     </ul>
   </div>

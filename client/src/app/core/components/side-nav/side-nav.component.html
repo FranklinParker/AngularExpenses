@@ -11,10 +11,17 @@
           routerLink="/register"
           (click)="onSidenavClose()">Register</span>
   </a>
+  <a mat-list-item *ngIf="userLoggedIn">
+    <mat-icon>event</mat-icon>
+    <span class="nav-caption"
+          routerLink="/contact"
+          (click)="onSidenavClose()">Contact</span>
+  </a>
   <mat-list-item *ngIf="userLoggedIn">
     <button mat-icon-button (click)="onLogout()">
       <mat-icon >lock</mat-icon>
       <span class="nav-caption">Logout</span>
     </button>
   </mat-list-item>
+
 </mat-nav-list>

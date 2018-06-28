@@ -4,6 +4,7 @@ import {TestComponent} from "./core/components/test/test.component";
 import {LoginComponent} from "./auth/components/login/login.component";
 import {SignupComponent} from "./auth/components/signup/signup.component";
 import {HomeComponent} from "./core/components/home/home.component";
+import {ContactComponent} from "./contact/components/contact/contact.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
     path:'register',
     component: SignupComponent
 
+  },
+  {
+    path:'contact',
+    component: ContactComponent
   },
   {
     path: '',
