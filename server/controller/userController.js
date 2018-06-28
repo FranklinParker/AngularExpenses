@@ -51,6 +51,7 @@ const login = async (params)=>{
 	try{
 		const loginResult = await findUserConfirmPassword(user.email,user.password);
 		console.log('loginResult', loginResult);
+		loginResult.expiresIn = 180;
 		return loginResult;
 	}catch(e){
 		console.log('error', e);

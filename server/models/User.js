@@ -62,12 +62,12 @@ const findUserConfirmPassword = async (email, password) => {
 			const isMatch = await bcrypt.compare(password, user.password);
       if(isMatch){
 				const token = jwt.sign({email: user.email, userId: user._id},
-					config.secret
-					, {expiresIn: '1h'});
+					config.secret, {expiresIn: '3m'});
 				return {
 					success: true,
 					record: user,
-          token: token
+          token: token,
+					expiresIn: 180
 				}
       }else{
 				return {
