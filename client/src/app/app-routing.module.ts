@@ -5,6 +5,7 @@ import {LoginComponent} from "./auth/components/login/login.component";
 import {SignupComponent} from "./auth/components/signup/signup.component";
 import {HomeComponent} from "./core/components/home/home.component";
 import {ContactComponent} from "./contact/components/contact/contact.component";
+import {AuthGuard} from "./auth/service/auth.guard";
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
   },
   {
     path:'contact',
-    component: ContactComponent
+    component: ContactComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',
